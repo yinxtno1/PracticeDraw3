@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class Practice14GetFontMetricsView extends View {
@@ -14,6 +15,13 @@ public class Practice14GetFontMetricsView extends View {
     String[] texts = {"A", "a", "J", "j", "Â", "â"};
     int top = 200;
     int bottom = 400;
+
+    private float text1Offset;
+    private float text2Offset;
+    private float text3Offset;
+    private float text4Offset;
+    private float text5Offset;
+    private float text6Offset;
 
     public Practice14GetFontMetricsView(Context context) {
         super(context);
@@ -32,6 +40,12 @@ public class Practice14GetFontMetricsView extends View {
         paint1.setStrokeWidth(20);
         paint1.setColor(Color.parseColor("#E91E63"));
         paint2.setTextSize(160);
+
+        Paint.FontMetricsInt fontMetrics = paint2.getFontMetricsInt();
+
+        text1Offset =  - (fontMetrics.ascent + fontMetrics.descent) / 2;
+
+        Log.d("TAG", fontMetrics.toString() + "");
     }
 
     @Override
@@ -45,11 +59,11 @@ public class Practice14GetFontMetricsView extends View {
         // 这种居中算法的优点是，可以让不同的文字的 baseline 对齐
 
         int middle = (top + bottom) / 2;
-        canvas.drawText(texts[0], 100, middle, paint2);
-        canvas.drawText(texts[1], 200, middle, paint2);
-        canvas.drawText(texts[2], 300, middle, paint2);
-        canvas.drawText(texts[3], 400, middle, paint2);
-        canvas.drawText(texts[4], 500, middle, paint2);
-        canvas.drawText(texts[5], 600, middle, paint2);
+        canvas.drawText(texts[0], 100, middle + text1Offset, paint2);
+        canvas.drawText(texts[1], 200, middle + text1Offset, paint2);
+        canvas.drawText(texts[2], 300, middle + text1Offset, paint2);
+        canvas.drawText(texts[3], 400, middle + text1Offset, paint2);
+        canvas.drawText(texts[4], 500, middle + text1Offset, paint2);
+        canvas.drawText(texts[5], 600, middle + text1Offset, paint2);
     }
 }
